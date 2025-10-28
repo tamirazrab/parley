@@ -5,7 +5,9 @@
       "name": "parley",
       "dependencies": {
         "dotenv": "^17.2.2",
+        "drizzle-orm": "^0.44.7",
         "inngest": "^3.44.3",
+        "jsonl-parse-stringify": "^1.0.3",
         "nanoid": "^5.1.6",
         "zod": "^4.1.11",
       },
@@ -156,7 +158,6 @@
       "dependencies": {
         "@neondatabase/serverless": "^1.0.1",
         "dotenv": "catalog:",
-        "drizzle-orm": "^0.44.2",
         "ws": "^8.18.3",
         "zod": "catalog:",
       },
@@ -1432,6 +1433,8 @@
     "json-stringify-safe": ["json-stringify-safe@5.0.1", "", {}, "sha512-ZClg6AaYvamvYEE82d3Iyd3vSSIjQ+odgjaTzRuO3s7toCdFKczob2i0zCh7JE8kWn17yvAWhUVxvqGwUalsRA=="],
 
     "jsonfile": ["jsonfile@6.2.0", "", { "dependencies": { "universalify": "^2.0.0" }, "optionalDependencies": { "graceful-fs": "^4.1.6" } }, "sha512-FGuPw30AdOIUTRMC2OMRtQV+jkVj2cfPqSeWXv1NEAJ1qZ5zb1X6z1mFhbfOB/iy3ssJCD+3KuZ8r8C3uVFlAg=="],
+
+    "jsonl-parse-stringify": ["jsonl-parse-stringify@1.0.3", "", {}, "sha512-EdOSqaMIRhkF0p8So65MU8biuDYRr5XUV9XxJhTEKQ3v2eY6WT3F99Cp5hdHtJo6wLjoPvWQq38szYKpM/GYpQ=="],
 
     "ky": ["ky@1.13.0", "", {}, "sha512-JeNNGs44hVUp2XxO3FY9WV28ymG7LgO4wju4HL/dCq1A8eKDcFgVrdCn1ssn+3Q/5OQilv5aYsL0DMt5mmAV9w=="],
 

@@ -4,7 +4,6 @@ import { useState, type Dispatch, type SetStateAction } from "react";
 import { useRouter } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 
-import { useTRPC } from "@/trpc/client";
 import {
   CommandEmpty,
   CommandGroup,
@@ -14,6 +13,7 @@ import {
   CommandResponsiveDialog,
 } from "@/components/ui/command";
 import { GeneratedAvatar } from "@/components/custom/generated-avatar";
+import { trpc } from "@/utils/trpc";
 
 interface DashboardCommandProps {
   open: boolean;
@@ -22,7 +22,6 @@ interface DashboardCommandProps {
 
 export const DashboardCommand = ({ open, setOpen }: DashboardCommandProps) => {
   const router = useRouter();
-  const trpc = useTRPC();
 
   const [search, setSearch] = useState("");
 

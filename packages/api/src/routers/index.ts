@@ -1,4 +1,6 @@
 import { protectedProcedure, publicProcedure, router } from "../index";
+import { agentsRouter } from "./agents/api/agent-router";
+import { meetingsRouter } from "./meetings/api/meeting-router";
 
 export const appRouter = router({
 	healthCheck: publicProcedure.query(() => {
@@ -10,5 +12,7 @@ export const appRouter = router({
 			user: ctx.session.user,
 		};
 	}),
+  agents: agentsRouter,
+  meetings: meetingsRouter
 });
 export type AppRouter = typeof appRouter;

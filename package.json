@@ -33,7 +33,9 @@
   },
   "dependencies": {
     "dotenv": "^17.2.2",
+    "drizzle-orm": "^0.44.7",
     "inngest": "^3.44.3",
+    "jsonl-parse-stringify": "^1.0.3",
     "nanoid": "^5.1.6",
     "zod": "^4.1.11"
   },

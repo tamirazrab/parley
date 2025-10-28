@@ -11,3 +11,24 @@ export const FREE_TIER_LIMITS = {
   meetings: 3,
   agents: 1
 }
+
+export const PAGINATION = {
+  DEFAULT: {
+    PAGE: 1,
+    PAGE_SIZE: 10,
+  },
+  LIMITS: {
+    MAX_PAGE_SIZE: 100,
+    MIN_PAGE_SIZE: 1,
+  },
+} as const;
+
+export const MEETING_STATUS = {
+  UPCOMING: "upcoming",
+  ACTIVE: "active",
+  COMPLETED: "completed",
+  PROCESSING: "processing",
+  CANCELLED: "cancelled",
+} as const;
+
+export type MeetingStatus = (typeof MEETING_STATUS)[keyof typeof MEETING_STATUS];
