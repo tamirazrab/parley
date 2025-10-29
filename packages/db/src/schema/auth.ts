@@ -1,5 +1,5 @@
-import { pgTable, text, timestamp, boolean, serial } from "drizzle-orm/pg-core";
-
+import { pgTable, text, timestamp, boolean, pgEnum } from "drizzle-orm/pg-core";
+import { nanoid } from "nanoid";
 export const user = pgTable("user", {
 	id: text("id").primaryKey(),
 	name: text("name").notNull(),
@@ -49,3 +49,4 @@ export const verification = pgTable("verification", {
 	createdAt: timestamp("created_at"),
 	updatedAt: timestamp("updated_at"),
 });
+
