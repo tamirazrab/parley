@@ -1,9 +1,9 @@
-import { PAGINATION } from './../../../../../../apps/web/src/lib/constants';
+import { PAGINATION } from '../../../constants';
 import { generateAvatarUri } from '@/lib/avatar';
-import { user } from './../../../../../../packages/db/src/schema/auth';
-import { db } from './../../../../../../packages/db/src/index';
-import { meetings } from './../../../../../../packages/db/src/schema/meeting';
-import { agents } from './../../../../../../packages/db/src/schema/agent';
+import { user } from '@parley/db/src/schema/auth';
+import { db } from '@parley/db';
+import { meetings } from '@parley/db/src/schema/meeting';
+import { agents } from '@parley/db/src/schema/agent';
 import { z } from "zod";
 import JSONL from "jsonl-parse-stringify";
 import { TRPCError } from "@trpc/server";
@@ -11,10 +11,10 @@ import { and, count, desc, eq, getTableColumns, ilike, inArray, sql } from "driz
 
 // import { streamVideo } from "@/lib/stream-video";
 
-import { MeetingStatus, StreamTranscriptItem } from "../types";
+import { MeetingStatus, type StreamTranscriptItem } from "../types";
 import { protectedProcedure, router } from "@parley/api";
 
-import { meetingsUpdateSchema, meetingsInsertSchema } from "./schemas";
+import { meetingsUpdateSchema, } from "./schemas";
 // import { streamChat } from "@/lib/stream-chat";
 
 const { PAGE, PAGE_SIZE } = PAGINATION.DEFAULT;
@@ -221,7 +221,7 @@ export const meetingsRouter = router({
       };
     }),
 
-    // create: premiumProcedure("meetings")
+  // create: premiumProcedure("meetings")
   //   .input(meetingsInsertSchema)
   //   .mutation(async ({ input, ctx }) => {
   //     const [createdMeeting] = await db
