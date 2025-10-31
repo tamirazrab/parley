@@ -4,9 +4,8 @@ import { ColumnDef } from "@tanstack/react-table"
 import { CornerDownRightIcon, VideoIcon } from "lucide-react"
 
 import { Badge } from "@/components/ui/badge"
-import { GeneratedAvatar } from "@/components/generated-avatar"
-
-import { AgentsGetMany } from "../../types"
+import { GeneratedAvatar } from "@/components/custom/generated-avatar"
+import type { AgentsGetMany } from "../../types"
 
 export const columns: ColumnDef<AgentsGetMany[number]>[] = [
   {

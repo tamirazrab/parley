@@ -3,31 +3,33 @@ import { createTRPCClient, httpBatchLink } from "@trpc/client";
 import { createTRPCOptionsProxy } from "@trpc/tanstack-react-query";
 import type { AppRouter } from "@parley/api/routers/index";
 import { toast } from "sonner";
+import { cache } from "react";
 
-export const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      staleTime: 30 * 1000,
+function makeQueryClient() {
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        staleTime: 30 * 1000,
+      },
     },
-    dehydrate: {
-      shouldDehydrateQuery: (query) =>
-        defaultShouldDehydrateQuery(query) ||
-        query.state.status === 'pending',
-    },
-  },
-  queryCache: new QueryCache({
-    onError: (error) => {
-      toast.error(error.message, {
-        action: {
-          label: "retry",
-          onClick: () => {
-            queryClient.invalidateQueries();
+    queryCache: new QueryCache({
+      onError: (error) => {
+        // using closure-safe lazy reference
+        toast.error(error.message, {
+          action: {
+            label: "retry",
+            onClick: () => {
+              // safely re-fetch all queries
+              queryClient.invalidateQueries();
+            },
           },
-        },
-      });
-    },
-  }),
-});
+        });
+      },
+    }),
+  });
+
+  return queryClient;
+}
 
 export const getQueryClient = cache(makeQueryClient);
 

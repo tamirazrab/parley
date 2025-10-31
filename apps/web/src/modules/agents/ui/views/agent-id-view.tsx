@@ -3,9 +3,9 @@
 import { useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-import { Badge, VideoIcon } from "lucide-react";
+import { VideoIcon } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
 import { useMutation, useQueryClient, useSuspenseQuery } from "@tanstack/react-query";
-
 
 import { UpdateAgentDialog } from "../components/update-agent-dialog";
 import { AgentIdViewHeader } from "../components/agent-id-view-header";
@@ -13,6 +13,7 @@ import { ErrorState } from "@/components/custom/error-state";
 import { GeneratedAvatar } from "@/components/custom/generated-avatar";
 import { LoadingState } from "@/components/custom/loading-state";
 import { trpc } from "@/utils/trpc";
+import { useConfirm } from "../../hooks/use-confirm";
 
 interface AgentIdViewProps {
   agentId: string;
@@ -29,7 +30,7 @@ export const AgentIdView = ({ agentId }: AgentIdViewProps) => {
   const [isUpdateDialogOpen, setIsUpdateDialogOpen] = useState(false);
 
   // Fetch single agent data
-  const { data: agent } = useSuspenseQuery(
+  const { data: agent  } = useSuspenseQuery(
     trpc.agents.getOne.queryOptions({ id: agentId })
   );
 

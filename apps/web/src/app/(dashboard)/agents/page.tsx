@@ -3,7 +3,7 @@ import { headers } from "next/headers";
 import type { SearchParams } from "nuqs";
 import { redirect } from "next/navigation";
 import { ErrorBoundary } from "react-error-boundary";
-import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
+import { defaultShouldDehydrateQuery, dehydrate, HydrationBoundary } from "@tanstack/react-query";
 
 import { loadSearchParams } from "@/modules/agents/params";
 import { AgentsListHeader } from "@/modules/agents/ui/components/agents-list-header";
@@ -34,10 +34,16 @@ const Page = async ({ searchParams }: Props) => {
     ...filters,
   }));
 
+  const dehydratedState = dehydrate(queryClient, {
+    shouldDehydrateQuery: (query) =>
+      defaultShouldDehydrateQuery(query) ||
+      query.state.status === 'pending',
+  });
+
   return (
     <>
       <AgentsListHeader />
-      <HydrationBoundary state={dehydrate(queryClient)}>
+      <HydrationBoundary state={dehydratedState}>
         <Suspense fallback={<AgentsViewLoading />}>
           <ErrorBoundary fallback={<AgentsViewError />}>
             <AgentsView />
