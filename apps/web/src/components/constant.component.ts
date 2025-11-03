@@ -1,1 +1,0 @@
-export type AvatarVariant = "botttsNeutral" | "initials";

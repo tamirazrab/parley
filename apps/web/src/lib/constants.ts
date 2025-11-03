@@ -32,3 +32,5 @@ export const MEETING_STATUS = {
 } as const;
 
 export type MeetingStatus = (typeof MEETING_STATUS)[keyof typeof MEETING_STATUS];
+
+export type AvatarVariant = "botttsNeutral" | "initials";
