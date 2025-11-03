@@ -31,6 +31,7 @@ function makeQueryClient() {
   return queryClient;
 }
 
+export const queryClient = makeQueryClient();
 export const getQueryClient = cache(makeQueryClient);
 
 const trpcClient = createTRPCClient<AppRouter>({

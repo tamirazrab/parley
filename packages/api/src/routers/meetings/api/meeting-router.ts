@@ -1,21 +1,21 @@
-import { PAGINATION } from '../../../constants';
+import { streamVideo } from '@/lib/stream-video';
+import { MEETING_STATUS, StreamTranscriptItem } from './../../../../../../apps/web/src/lib/types';
+import { meetings } from './../../../../../db/src/schema/meeting';
+import { agents } from './../../../../../db/src/schema/agent';
+import { db } from './../../../../../db/src/index';
+import { user } from './../../../../../db/src/schema/auth';
+import { streamChat } from '@/lib/stream-chat';
 import { generateAvatarUri } from '@/lib/avatar';
-import { user } from '@parley/db/src/schema/auth';
-import { db } from '@parley/db';
-import { meetings } from '@parley/db/src/schema/meeting';
-import { agents } from '@parley/db/src/schema/agent';
+
 import { z } from "zod";
 import JSONL from "jsonl-parse-stringify";
 import { TRPCError } from "@trpc/server";
 import { and, count, desc, eq, getTableColumns, ilike, inArray, sql } from "drizzle-orm";
 
-// import { streamVideo } from "@/lib/stream-video";
-
-import { MeetingStatus, type StreamTranscriptItem } from "../types";
 import { protectedProcedure, router } from "@parley/api";
 
-import { meetingsUpdateSchema, } from "./schemas";
-// import { streamChat } from "@/lib/stream-chat";
+import { meetingsUpdateSchema, meetingsInsertSchema } from "./schemas";
+import { PAGINATION } from '../../../constants';
 
 const { PAGE, PAGE_SIZE } = PAGINATION.DEFAULT;
 const { MAX_PAGE_SIZE, MIN_PAGE_SIZE } = PAGINATION.LIMITS;
@@ -169,11 +169,11 @@ export const meetingsRouter = router({
         agentId: z.string().nullish(),
         status: z
           .enum([
-            MeetingStatus.Upcoming,
-            MeetingStatus.Active,
-            MeetingStatus.Completed,
-            MeetingStatus.Processing,
-            MeetingStatus.Cancelled,
+            MEETING_STATUS.Upcoming,
+            MEETING_STATUS.Active,
+            MEETING_STATUS.Completed,
+            MEETING_STATUS.Processing,
+            MEETING_STATUS.Cancelled,
           ])
           .nullish(),
       })
@@ -216,12 +216,12 @@ export const meetingsRouter = router({
 
       return {
         items: data,
-        total: total.count,
-        totalPages: Math.ceil(total.count / pageSize),
+        total: total?.count,
+        totalPages: Math.ceil(total?.count / pageSize),
       };
     }),
 
-  // create: premiumProcedure("meetings")
+    // create: premiumProcedure("meetings")
   //   .input(meetingsInsertSchema)
   //   .mutation(async ({ input, ctx }) => {
   //     const [createdMeeting] = await db
