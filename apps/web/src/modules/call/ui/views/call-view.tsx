@@ -15,7 +15,7 @@ export const CallView = ({
 }: Props) => {
   const { data } = useSuspenseQuery(trpc.meetings.getOne.queryOptions({ id: meetingId }));
 
-  if (data.status === "completed") {
+  if (data.status === "completed" || data.status === "cancelled") {
     return (
       <div className="flex h-screen items-center justify-center">
         <ErrorState
