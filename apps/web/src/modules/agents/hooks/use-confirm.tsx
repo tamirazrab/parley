@@ -1,4 +1,4 @@
-import { JSX, useState } from "react";
+import { type JSX, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { ResponsiveDialog } from "@/components/custom/responsive-dialog";
@@ -38,7 +38,7 @@ export const useConfirm = (
       title={title}
       description={description}
     >
-      <div className="pt-4 w-full flex flex-col-reverse gap-y-2 lg:flex-row gap-x-2 items-center justify-end">
+      <div className="flex w-full flex-col-reverse items-center justify-end gap-x-2 gap-y-2 pt-4 lg:flex-row">
         <Button
           onClick={handleCancel}
           variant="outline"
