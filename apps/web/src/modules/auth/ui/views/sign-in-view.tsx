@@ -22,6 +22,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { PROJECT } from "@/lib/constants";
 
 const formSchema = z.object({
   email: z.email(),
@@ -188,9 +189,9 @@ export const SignInView = () => {
           </Form>
 
           <div className="relative hidden flex-col items-center justify-center gap-y-4 bg-radial from-sidebar-accent to-sidebar md:flex">
-            <img src="/logo.svg" alt="Image" className="h-[92px] w-[92px]" />
+            <img src="/logo.svg" alt="Parley Logo" className="h-[92px] w-[92px]" />
             <p className="font-semibold text-2xl text-white">
-              Meet.AI
+             {PROJECT.name}
             </p>
           </div>
         </CardContent>
