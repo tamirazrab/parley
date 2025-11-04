@@ -6,13 +6,13 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 
 
 import { columns } from "../components/columns";
-import { DataPagination } from "../components/data-pagination";
 import { useAgentsFilters } from "../../hooks/use-agents-filters";
 import { DataTable } from "@/components/custom/data-table";
 import { EmptyState } from "@/components/custom/empty-state";
 import { ErrorState } from "@/components/custom/error-state";
 import { LoadingState } from "@/components/custom/loading-state";
 import { trpc } from "@/utils/trpc";
+import { DataPagination } from "@/components/custom/data-pagination";
 
 /**
  * Displays the main view of agents with pagination.
