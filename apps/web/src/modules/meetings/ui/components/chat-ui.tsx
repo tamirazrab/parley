@@ -31,7 +31,7 @@ export const ChatUI = ({
   userImage,
 }: ChatUIProps) => {
   // TODO: fix the default value
-  const apiKey = process.env.NEXT_PUBLIC_STREAM_CHAT_API_KEY || 'wrong';
+  const apiKey = process.env.NEXT_PUBLIC_STREAM_CHAT_API_KEY!;
 
 
   const { mutateAsync: generateChatToken } = useMutation(
@@ -95,17 +95,6 @@ export const ChatUI = ({
       );
     };
   }, [client, meetingId,  userId]);
-
-  if (!apiKey) {
-    console.error(
-      "Missing required environment variable: NEXT_PUBLIC_STREAM_CHAT_API_KEY"
-    );
-    return (
-      <div className="p-4 text-red-600">
-        Missing chat configuration. Please contact support.
-      </div>
-    );
-  }
 
   if (error) {
     return (
