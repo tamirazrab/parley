@@ -4,7 +4,7 @@ import { z } from "zod";
 import { TRPCError } from "@trpc/server";
 import { and, count, desc, eq, getTableColumns, ilike } from "drizzle-orm";
 import { protectedProcedure, router } from "@parley/api";
-import { agentsUpdateSchema, agentsInsertSchema } from "./schemas";
+import { agentsUpdateSchema } from "./schemas";
 import { db } from "@parley/db";
 import { agents } from "@parley/db/schema/agent";
 import { meetings } from "@parley/db/schema/meeting";
