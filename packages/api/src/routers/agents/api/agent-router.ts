@@ -1,13 +1,15 @@
-import { meetings } from '@parley/db/src/schema/meeting';
-import { db } from '@parley/db';
-// TODO: fix imports use @parley
-import { agents } from '@parley/db/src/schema/agent';
+
+
 import { z } from "zod";
 import { TRPCError } from "@trpc/server";
 import { and, count, desc, eq, getTableColumns, ilike } from "drizzle-orm";
 import { protectedProcedure, router } from "@parley/api";
-import { agentsUpdateSchema, } from "./schemas";
-import { PAGINATION } from '../../../constants';
+import { agentsUpdateSchema } from "./schemas";
+import { db } from "@parley/db";
+import { agents } from "@parley/db/schema/agent";
+import { meetings } from "@parley/db/schema/meeting";
+import { PAGINATION } from "../../../constants";
+
 
 const { PAGE, PAGE_SIZE } = PAGINATION.DEFAULT;
 const { MAX_PAGE_SIZE, MIN_PAGE_SIZE } = PAGINATION.LIMITS;

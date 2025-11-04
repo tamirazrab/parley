@@ -1,5 +1,4 @@
-import { ResponsiveDialog } from "@/components/responsive-dialog";
-
+import { ResponsiveDialog } from "@/components/custom/responsive-dialog";
 import { AgentForm } from "./agent-form";
 
 interface NewAgentDialogProps {
