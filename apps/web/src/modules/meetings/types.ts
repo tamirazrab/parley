@@ -17,4 +17,8 @@ export type StreamTranscriptItem = {
   text: string;
   start_ts: number;
   stop_ts: number;
+  user: {
+    name: string;
+    image: string | null;
+  };
 };
