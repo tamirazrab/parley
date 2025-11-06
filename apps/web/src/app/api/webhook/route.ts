@@ -138,11 +138,19 @@ export async function POST(req: NextRequest) {
       case "call.recording_ready": {
         const event = payload as unknown as CallRecordingReadyEvent;
         const meetingId = event.call_cid?.split(":")[1];
-        if (meetingId)
-          await db
-            .update(meetings)
-            .set({ recordingUrl: event.call_recording.url })
-            .where(eq(meetings.id, meetingId));
+        
+        if (!meetingId)
+          return NextResponse.json({ error: "Missing meetingId" }, { status: 400 });
+        
+        const [meeting] = await db
+          .update(meetings)
+          .set({ recordingUrl: event.call_recording.url })
+          .where(eq(meetings.id, meetingId))
+          .returning();
+        
+        if (!meeting)
+          return NextResponse.json({ error: "Meeting not found" }, { status: 404 });
+        
         break;
       }
 
