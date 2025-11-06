@@ -84,9 +84,18 @@ export async function POST(req: NextRequest) {
           return NextResponse.json({ error: "Missing meetingId" }, { status: 400 });
         }
 
-        await streamVideo.video.call("default", meetingId).end();
+        const call = await streamVideo.video.call("default", meetingId).get();
+        const remainingParticipants = call?.members?.filter(
+          (m) => m.role !== "removed" && m.role !== "left"
+        );
+
+        if (!remainingParticipants || remainingParticipants.length === 0) {
+          await streamVideo.video.call("default", meetingId).end();
+        }
+
         break;
       }
+
 
       case "call.session_ended": {
         const event = payload as unknown as CallEndedEvent;
@@ -102,7 +111,7 @@ export async function POST(req: NextRequest) {
       }
 
       case "call.transcription_ready": {
-        const event = payload as  unknown as CallTranscriptionReadyEvent;
+        const event = payload as unknown as CallTranscriptionReadyEvent;
         const meetingId = event.call_cid?.split(":")[1];
         if (!meetingId)
           return NextResponse.json({ error: "Missing meetingId" }, { status: 400 });
@@ -127,7 +136,7 @@ export async function POST(req: NextRequest) {
       }
 
       case "call.recording_ready": {
-        const event = payload as unknown as  CallRecordingReadyEvent;
+        const event = payload as unknown as CallRecordingReadyEvent;
         const meetingId = event.call_cid?.split(":")[1];
         if (meetingId)
           await db
@@ -169,6 +178,13 @@ export async function POST(req: NextRequest) {
               content: m.text!,
             }));
 
+          if (!meeting.summary) {
+            return NextResponse.json(
+              { error: "Meeting summary not yet available" },
+              { status: 400 }
+            );
+          }
+
           const instructions = `
             You are an AI assistant helping the user revisit a recently completed meeting.
             Below is a summary of the meeting, generated from the transcript:
@@ -198,7 +214,7 @@ export async function POST(req: NextRequest) {
             model: "gpt-4o",
           });
 
-          const GPTResponseText = GPTResponse.choices[0].message.content;
+          const GPTResponseText = GPTResponse.choices[0]?.message?.content;
 
           if (!GPTResponseText) {
             return NextResponse.json(
