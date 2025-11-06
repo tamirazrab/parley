@@ -8,6 +8,3 @@ export const PAGINATION = {
     MIN_PAGE_SIZE: 1,
   },
 } as const;
-
-
-
